@@ -46,6 +46,12 @@ public class UI {
         }
         System.out.println("  a b c d e f g h");
     }
+    // https://stackoverflow.com/questions/2979383/java-clear-the-console
+    public static void clearScreen() {
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+    }
+    
     private static void printPiece(ChessPiece piece){
         if (piece == null) System.out.print("-");
         else {
