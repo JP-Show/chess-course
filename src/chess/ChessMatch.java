@@ -3,6 +3,9 @@ package chess;
 import java.util.stream.IntStream;
 
 import boardgame.Board;
+import boardgame.Piece;
+import boardgame.Position;
+import chess.exception.ChessException;
 import chess.pieces.King;
 import chess.pieces.Rook;
 
@@ -31,6 +34,26 @@ public class ChessMatch {
         board.placePiece(piece, new ChessPosition(column, row).toPosition());
     }
 
+    public ChessPiece performChessMove(ChessPosition sourcePosition, ChessPosition targetPosition){
+        Position source = sourcePosition.toPosition();
+        Position target = targetPosition.toPosition();
+        validateSourcePosition(source);
+        Piece capturedPiece = makeMove(source, target);
+        return (ChessPiece) capturedPiece;
+    }
+    private Piece makeMove(Position source, Position target){
+        Piece piece = board.removePiece(source);
+        Piece capturedPiece = board.piece(target);
+        board.placePiece(piece, target);
+        return capturedPiece;
+    }
+
+
+    private void validateSourcePosition(Position position){
+        if(!board.thereIsAPiece(position)) 
+            throw new ChessException("There is no piece on source position");
+        
+    }
     private void initialSetup(){
         placeNewPiece('c', 1, new Rook(board, Color.WHITE));
         placeNewPiece('c', 2, new Rook(board, Color.WHITE));
