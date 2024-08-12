@@ -38,6 +38,11 @@ public class App {
                 System.out.println("Enter piece ofr promotion (B, N, R or Q)");
                 String type = sc.nextLine().toUpperCase();
                 match.replacePromotedPiece(type);
+                while (!type.equals("B") && !type.equals("N") && !type.equals("R") && !type.equals("Q")) {
+                    System.out.println("Invalid value! Please enter B, N, R or Q");
+                    type = sc.nextLine().toUpperCase();
+                    
+                }
             }
             
 
